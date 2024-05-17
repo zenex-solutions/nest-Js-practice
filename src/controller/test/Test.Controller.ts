@@ -1,8 +1,11 @@
-import { Post } from '@nestjs/common';
+import { Controller, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
 
+@Controller('test')
 export class TestController {
-  @Post()
-  async create(): Promise<string> {
-    return 'ok';
+  @Post(':id')
+  async create(@Param('id', new ParseIntPipe(
+    { errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number):
+    Promise<string> {
+    return id.toString();
   }
 }

@@ -1,9 +1,10 @@
-import { Post } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 
-export class MongoController{
+@Controller('mongo')
+export class MongoController {
   @Post()
   async save(): Promise<string> {
 
-    return 'ok';
+    return 'ok-mongo';
   }
 }
