@@ -1,4 +1,7 @@
-import { Controller, Get, ParseBoolPipe, Query } from '@nestjs/common';
+import { Body, Controller, Get, ParseBoolPipe, Post, Query, UsePipes } from '@nestjs/common';
+import { TestDTO } from '../../dto/TestDTO';
+import { createCatSchema } from '../../pipes/schema';
+import { ZodValidationPipe } from '../../pipes/ZodValidationPipe';
 
 @Controller('test')
 export class TestController {
@@ -7,4 +10,13 @@ export class TestController {
 
     console.log(id);
   }
+
+
+  @Post()
+  @UsePipes(new ZodValidationPipe(createCatSchema))
+  async create(@Body() testDTO: TestDTO) {
+    console.log(testDTO);
+  }
+
+
 }
