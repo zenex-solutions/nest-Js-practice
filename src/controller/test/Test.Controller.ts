@@ -1,14 +1,10 @@
-import { Controller, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid'; // Import with type information
-
-
+import { Controller, Get, ParseBoolPipe, Query } from '@nestjs/common';
 
 @Controller('test')
 export class TestController {
-  @Post(':id')
-  async create(@Param('id',new ParseUUIDPipe()) id: string):
-    Promise<string> {
+  @Get()
+  async findOne(@Query('id', ParseBoolPipe) id: boolean) {
 
-    return uuidv4();
+    console.log(id);
   }
 }
