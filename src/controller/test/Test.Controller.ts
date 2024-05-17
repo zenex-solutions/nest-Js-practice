@@ -1,7 +1,8 @@
 import { Body, Controller, Get, ParseBoolPipe, Post, Query, UsePipes } from '@nestjs/common';
-import { TestDTO } from '../../dto/TestDTO';
+import { TestClassDTO, TestDTO } from '../../dto/TestDTO';
 import { createCatSchema } from '../../pipes/schema';
 import { ZodValidationPipe } from '../../pipes/ZodValidationPipe';
+import { ValidationTESTPipe } from '../../pipes/validation.pipe';
 
 @Controller('test')
 export class TestController {
@@ -15,6 +16,10 @@ export class TestController {
   @Post()
   @UsePipes(new ZodValidationPipe(createCatSchema))
   async create(@Body() testDTO: TestDTO) {
+    console.log(testDTO);
+  }
+  @Post('vali')
+  async classValidator(@Body(new ValidationTESTPipe()) testDTO:TestClassDTO) {
     console.log(testDTO);
   }
 
