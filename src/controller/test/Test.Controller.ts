@@ -1,11 +1,14 @@
-import { Controller, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Controller, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid'; // Import with type information
+
+
 
 @Controller('test')
 export class TestController {
   @Post(':id')
-  async create(@Param('id', new ParseIntPipe(
-    { errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number):
+  async create(@Param('id',new ParseUUIDPipe()) id: string):
     Promise<string> {
-    return id.toString();
+
+    return uuidv4();
   }
 }
